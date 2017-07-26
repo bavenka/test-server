@@ -1,22 +1,21 @@
 const express = require('express');
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 8000;
-const db= require('../config/db');
+const config = require('../config/config');
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-MongoClient.connect(db.url,(err, database) => {
+mongoose.connect(config.url, (err) => {
     if (err) {
         return console.log(err);
     }
-    require('./routes')(app,database);
-    app.listen(port, () => {
-        console.log('We are live on ' + port);
+    require('./routes')(app);
+    app.listen(config, () => {
+        console.log('We are live on ' + config.port);
     });
 });
