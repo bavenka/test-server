@@ -1,20 +1,21 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+
+import config from '../config/config';
+import userRoute from './routes/userRoute'
 
 const app = express();
-const config = require('../config/config');
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use('/',userRoute);
 
 mongoose.connect(config.url, (err) => {
     if (err) {
         return console.log(err);
     }
-    require('./routes')(app);
     app.listen(config, () => {
         console.log('We are live on ' + config.port);
     });

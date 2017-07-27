@@ -1,6 +1,6 @@
-const User = require('../models/user');
+import User from '../models/userModel';
 
-module.exports = function (username, email, password) {
+export const saveUser = (username, email, password) => {
     const newUser = new User(
         {
             username: username,
