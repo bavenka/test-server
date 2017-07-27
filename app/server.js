@@ -23,7 +23,7 @@ app.use((err, req, res, next) => {
         const pattern = /E11000.*:.*\.(\w*)s .*: (.*)_.*/g;
         const regexp = new RegExp(pattern);
         const result = regexp.exec(err.message);
-        res.status(400).end(`'${result[1]}' with such field '${result[2]}' already exists`);
+        res.status(409).end(`'${result[1]}' with such field '${result[2]}' already exists`);
     } else {
         console.log(err.name, err.message);
         res.status(400).end('Bad request');
