@@ -1,5 +1,5 @@
 const config = {
     url: 'mongodb://localhost:27017/db',
-    port: 8000
+    port: 8001
 };
 export default config;

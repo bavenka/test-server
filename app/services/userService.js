@@ -1,9 +1,10 @@
 import User from '../models/userModel';
 
-export const saveUser = (username, email, password) => {
+export const saveUser = (name, lastName, email, password) => {
     const newUser = new User(
         {
-            username: username,
+            name: name,
+            lastName: lastName,
             email: email,
             password: password
         });

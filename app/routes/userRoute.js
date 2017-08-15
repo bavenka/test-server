@@ -6,6 +6,6 @@ import * as userController from '../controllers/userController'
 
 const router = express.Router();
 
-router.post('/',validate(userValidator), userController.saveUser);
+router.post('/signup',validate(userValidator), userController.saveUser);
 
 export default router;

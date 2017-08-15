@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/',userRoute);
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     if (err.name === 'UnauthorizedError') {
         res.status(401).end('invalid token');
     } else if (err.name === 'ValidationError') {
