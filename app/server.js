@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
@@ -9,24 +10,24 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
-app.use('/',userRoute);
+app.use('/', userRoute);
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
-        res.status(401).end('invalid token');
+        res.status(401).json({error: 'invalid token'});
     } else if (err.name === 'ValidationError') {
-        res.status(err.status).end(err.statusText);
+        res.status(err.status).json({error: err.statusText});
     } else if (err.name === 'ForbiddenError') {
-        res.status(err.status).end('Forbidden');
+        res.status(err.status).json({error: 'Forbidden'});
     } else if (err.name === 'MongoError') {
         const pattern = /E11000.*:.*\.(\w*)s .*: (.*)_.*/g;
         const regexp = new RegExp(pattern);
         const result = regexp.exec(err.message);
-        res.status(409).end(`'${result[1]}' with such field '${result[2]}' already exists`);
+        res.status(409).json({error: `${result[2]}`});
     } else {
-        console.log(err.name, err.message);
-        res.status(400).end('Bad request');
+        res.status(400).json({error: 'Bad request'});
     }
 });
 
