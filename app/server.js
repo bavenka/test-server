@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
 import config from '../config/config';
-import userRoute from './routes/userRoute'
+import userRoute from './routes/userRoute';
+import filmRoute from './routes/filmRoute';
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
-app.use('/', userRoute);
+app.use('/', userRoute, filmRoute);
 
 app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {

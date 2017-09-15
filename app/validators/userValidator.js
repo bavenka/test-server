@@ -2,9 +2,15 @@ import Joi from 'joi';
 
 export default {
     body: {
-        name: Joi.string().required(),
-        lastName: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        title: Joi.string().required(),
+        image: Joi.string().required(),
+        description: Joi.string().required(),
+        releaseYear: Joi.date().required(),
+        publisher: Joi.string().required(),
+        genre: Joi.string().required(),
+        format: Joi.string().required(),
+        duration: Joi.date().required(),
+        budget: Joi.number().required(),
+        rating: Joi.number().required()
     },
 };
